@@ -1,4 +1,5 @@
 #include "MySockethead.h"
+#define BUFSIZE 4097
 MySocket::MySocket()
 {
 	WSAStartup(MAKEWORD(2, 2), &this->wsaData);
@@ -51,7 +52,7 @@ void MySocket::myaccept()
 }
 std::string MySocket::myrecv(int len)
 {
-	char* recvdata;
+	char recvdata[BUFSIZE];
 	int recvlen = recv(this->sock_2, recvdata, len, 0);
 	std::string temp(recvdata);
 	return temp;
@@ -81,12 +82,12 @@ int MySocket::myconnect(std::string IP, int port)
 
 std::string MySocket::myrecvfrom(int len,std::string IP, int port)
 {
-	char* recvdata;
+	char recvdata[BUFSIZE];
 	int rus = recvfrom(this->sock_1, recvdata, len, 0, (SOCKADDR*)&this->target_addr, &this->target_addr_size);
 	std::string temp(recvdata);
 	return temp;
 }
-//默认发送给数据发送者
+//脛卢脠脧路垄脣脥赂酶脢媒戮脻路垄脣脥脮脽
 int MySocket::mysendto(std::string senddata, std::string IP = "", int port = 0)
 {
 	if (IP != "" && port != 0)
